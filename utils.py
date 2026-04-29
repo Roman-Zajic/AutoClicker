@@ -1,6 +1,8 @@
 import time
 import pyautogui
 
+pyautogui.FAILSAFE = True  # Move mouse to corner to abort
+
 def click(x, y, button="left"):
     """
     Click at specific screen coordinates.
@@ -20,8 +22,11 @@ def is_image_visible(template, confidence=0.8):
     Returns:
         (x, y) if found, otherwise None
     """
-    location = pyautogui.locateCenterOnScreen(template, confidence=confidence)
-    return location  # None if not found
+    try:
+        location = pyautogui.locateCenterOnScreen(template, confidence=confidence)
+        return (location.x, location.y) if location else None
+    except pyautogui.ImageNotFoundException:
+        return None
 
 
 def wait_for_image(template, timeout=5, interval=0.2, confidence=0.8):
@@ -39,7 +44,7 @@ def wait_for_image(template, timeout=5, interval=0.2, confidence=0.8):
         if location:
             return location
 
-        time.sleep(interval)
+        sleep(interval)
 
     return None
 
