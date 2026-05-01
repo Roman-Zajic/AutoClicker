@@ -3,9 +3,10 @@ import pyautogui
 
 pyautogui.FAILSAFE = True  # Move mouse to corner to abort
 
-def click(x, y, button="left"):
+def click(x=None, y=None, button="left"):
     """
     Click at specific screen coordinates.
+    If x and y are not provided, clicks the current mouse location.
     """
     pyautogui.click(x=x, y=y, button=button)
 

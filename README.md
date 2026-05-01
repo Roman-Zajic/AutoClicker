@@ -1,1 +1,3 @@
-Simple autoclicker with delay
+Simple autoclicker
+
+
